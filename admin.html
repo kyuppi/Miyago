@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0f172a">
+  <title>体育館予約 管理画面</title>
+  <meta name="description" content="体育館予約サイトの管理ダッシュボード">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body data-page="admin">
+  <div class="app-shell">
+    <header class="topbar">
+      <div>
+        <span class="eyebrow">GYM RESERVATION ADMIN</span>
+        <h1>管理ダッシュボード</h1>
+      </div>
+      <a class="ghost-link" href="index.html">予約画面</a>
+    </header>
+
+    <main class="main-content admin-layout">
+      <div id="loginPanel" class="hidden"></div>
+      <div id="adminApp">
+        <section class="dashboard-head">
+          <div>
+            <span class="eyebrow">LIVE DASHBOARD</span>
+            <h2>予約状況</h2>
+            <p id="connectionState" class="connection"><span class="live-dot"></span>リアルタイム接続中</p>
+          </div>
+          <div class="admin-actions">
+            <button id="logoutButton" class="ghost-button" type="button">ログアウト</button>
+          </div>
+        </section>
+
+        <section class="stat-grid">
+          <article class="stat-card"><span>表示月</span><strong id="monthReservationCount">0</strong><small>件の予約</small></article>
+          <article class="stat-card"><span>A面</span><strong id="aCount">0</strong><small>件</small></article>
+          <article class="stat-card"><span>B面</span><strong id="bCount">0</strong><small>件</small></article>
+          <article class="stat-card"><span>今日</span><strong id="todayCount">0</strong><small>件</small></article>
+        </section>
+
+        <section class="panel">
+          <div class="toolbar">
+            <div>
+              <h3>予約一覧</h3>
+              <p class="hint">他の端末から入った予約も自動で反映されます。ブラウザ通知は行いません。</p>
+            </div>
+            <input id="adminMonth" class="field compact" type="month" aria-label="表示月">
+          </div>
+          <div id="reservationList" class="reservation-list">
+            <div class="empty-state">読み込み中…</div>
+          </div>
+        </section>
+
+        <section class="panel">
+          <div class="toolbar">
+            <div>
+              <h3>時間枠ルール</h3>
+              <p class="hint">「何月〜何月の間だけ、この時間枠を出す」を登録します。</p>
+            </div>
+          </div>
+
+          <form id="ruleForm" class="rule-form">
+            <div class="form-grid">
+              <div>
+                <label for="ruleStartMonth">開始月</label>
+                <input id="ruleStartMonth" class="field" type="month" required>
+              </div>
+              <div>
+                <label for="ruleEndMonth">終了月</label>
+                <input id="ruleEndMonth" class="field" type="month" required>
+              </div>
+              <div>
+                <label for="ruleStartTime">開始時刻</label>
+                <input id="ruleStartTime" class="field" type="time" required>
+              </div>
+              <div>
+                <label for="ruleEndTime">終了時刻</label>
+                <input id="ruleEndTime" class="field" type="time" required>
+              </div>
+            </div>
+            <button class="primary-button" type="submit">時間枠ルールを追加</button>
+            <p id="ruleError" class="error-text" aria-live="polite"></p>
+          </form>
+
+          <div id="ruleList" class="rule-list"></div>
+        </section>
+
+        <section class="panel danger-panel">
+          <div class="toolbar">
+            <div>
+              <h3>学校サイト設定</h3>
+              <p class="hint">予約画面のタイトルを変更できます。</p>
+            </div>
+          </div>
+          <div class="form-grid">
+            <div class="span-2">
+              <label for="schoolNameInput">学校・施設名</label>
+              <input id="schoolNameInput" class="field" type="text" maxlength="50" placeholder="例：○○中学校 体育館">
+            </div>
+          </div>
+          <button id="saveSiteButton" class="primary-button" type="button">設定を保存</button>
+          <p id="siteMessage" class="status-message" aria-live="polite"></p>
+        </section>
+      </div>
+    </main>
+
+    <footer class="footer">管理画面 · 通知機能は使用しません</footer>
+  </div>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script type="module" src="admin.js"></script>
+</body>
+</html>
