@@ -1,0 +1,32 @@
+{
+  "rules": {
+    ".read": "auth != null",
+    ".write": "auth != null && auth.token.firebase.sign_in_provider == 'password'",
+    "settings": {
+      ".read": "auth != null",
+      ".write": "auth != null && auth.token.firebase.sign_in_provider == 'password'"
+    },
+    "reservations": {
+      "$month": {
+        "$date": {
+          "$court": {
+            "$slot": {
+              ".read": "auth != null",
+              ".write": "auth != null && (auth.token.firebase.sign_in_provider == 'password' || (!data.exists() && newData.exists() && auth.token.firebase.sign_in_provider == 'anonymous'))",
+              ".validate": "newData.hasChildren(['id','date','court','startTime','endTime','club','createdAt'])",
+              "club": {
+                ".validate": "newData.isString() && newData.val().length >= 1 && newData.val().length <= 40"
+              },
+              "court": {
+                ".validate": "newData.val() == 'A' || newData.val() == 'B'"
+              },
+              "date": {
+                ".validate": "newData.val() == $date"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
