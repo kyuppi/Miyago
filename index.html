@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0f172a">
+  <title>体育館予約</title>
+  <meta name="description" content="学校の体育館 A面・B面 予約サイト">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body data-page="reservation">
+  <div class="app-shell">
+    <header class="topbar">
+      <div>
+        <span class="eyebrow">SCHOOL GYM RESERVATION</span>
+        <h1 id="schoolTitle">体育館予約</h1>
+      </div>
+      <a class="ghost-link" href="admin.html">管理画面</a>
+    </header>
+
+    <main class="main-content">
+      <section class="hero-card">
+        <div>
+          <span class="eyebrow">RESERVE A TIME SLOT</span>
+          <h2>体育館を予約する</h2>
+          <p>利用日・面・時間・部活動名を選んでください。1つの時間枠につき予約は1件までです。</p>
+        </div>
+        <div class="hero-badge">
+          <span class="live-dot"></span>
+          リアルタイム更新
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="step-title"><span>01</span><div><strong>利用日</strong><small>予約したい日を選択</small></div></div>
+        <input id="dateInput" class="field" type="date">
+        <p id="dateHint" class="hint"></p>
+      </section>
+
+      <section class="panel">
+        <div class="step-title"><span>02</span><div><strong>利用する面</strong><small>A面またはB面</small></div></div>
+        <div class="segmented" id="courtGroup" role="radiogroup" aria-label="利用面">
+          <button type="button" class="court-button active" data-court="A" role="radio" aria-checked="true">A面</button>
+          <button type="button" class="court-button" data-court="B" role="radio" aria-checked="false">B面</button>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="step-title"><span>03</span><div><strong>利用時間</strong><small>管理画面で設定された時間だけ表示</small></div></div>
+        <div id="slotGrid" class="slot-grid">
+          <div class="empty-state">時間枠を読み込んでいます…</div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="step-title"><span>04</span><div><strong>部活動名</strong><small>予約する部活動の正式名称</small></div></div>
+        <label class="sr-only" for="clubInput">部活動名</label>
+        <input id="clubInput" class="field" type="text" inputmode="text" maxlength="40" placeholder="例：バスケットボール部" autocomplete="organization">
+        <p class="hint">1〜40文字で入力してください。</p>
+      </section>
+
+      <section class="summary-card">
+        <div>
+          <span class="eyebrow">YOUR SELECTION</span>
+          <h3 id="summaryTitle">予約内容</h3>
+          <p id="summaryText">利用日・面・時間を選択してください。</p>
+        </div>
+        <button id="reserveButton" class="primary-button" type="button" disabled>この内容で予約</button>
+      </section>
+      <p id="statusMessage" class="status-message" role="status" aria-live="polite"></p>
+    </main>
+
+    <footer class="footer">学校内の予約用ページ · 通知機能は使用しません</footer>
+  </div>
+
+  <div id="modal" class="modal hidden" aria-hidden="true">
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <button id="modalClose" class="modal-close" type="button" aria-label="閉じる">×</button>
+      <div class="success-icon">✓</div>
+      <span class="eyebrow">RESERVATION COMPLETE</span>
+      <h2 id="modalTitle">予約しました</h2>
+      <p id="modalText"></p>
+      <button id="modalDone" class="primary-button" type="button">閉じる</button>
+    </div>
+  </div>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>

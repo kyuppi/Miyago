@@ -1,0 +1,30 @@
+{
+  "rules": {
+    ".read": true,
+    ".write": false,
+    "settings": {
+      ".read": true,
+      ".write": true
+    },
+    "reservations": {
+      "$date": {
+        "$court": {
+          "$slot": {
+            ".read": true,
+            ".write": "(!data.exists() && newData.exists()) || (newData.val() == null)",
+            ".validate": "newData.hasChildren(['id','date','court','startTime','endTime','club','createdAt'])",
+            "club": {
+              ".validate": "newData.isString() && newData.val().length >= 1 && newData.val().length <= 40"
+            },
+            "court": {
+              ".validate": "newData.val() == 'A' || newData.val() == 'B'"
+            },
+            "date": {
+              ".validate": "newData.val() == $date"
+            }
+          }
+        }
+      }
+    }
+  }
+}
